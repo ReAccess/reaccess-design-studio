@@ -1,5 +1,3 @@
-# reaccess-design-studio
- 
 # ReAccess Design Studio
 
 ReAccess Design Studio is a no/low-code environment, enabling users to effortlessly create beautiful and modern websites while interacting with custom ReAccess controls inside forms. The builder leverages Azure cloud services to store and manage data, providing a seamless and efficient experience for users of all skill levels.
