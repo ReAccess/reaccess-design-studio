@@ -1,46 +1,36 @@
-# Getting Started with Create React App
+# reaccess-design-studio
+ 
+# ReAccess Design Studio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+ReAccess Design Studio is a no/low-code environment, enabling users to effortlessly create beautiful and modern websites while interacting with custom ReAccess controls inside forms. The builder leverages Azure cloud services to store and manage data, providing a seamless and efficient experience for users of all skill levels.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- No/Low-Code Development: Build websites without writing extensive code, making it accessible for both developers and non-developers.
+- Modern and Responsive Design: Create visually appealing websites that adapt to different devices and screen sizes.
+- Azure Integration: Seamlessly save and retrieve data using Azure services for robust and secure data management.
+- User-Friendly Interface: Intuitive tools and drag-and-drop functionality for easy website creation.
+- Custom ReAccess Controls: Use our bespoke controls to enhance your forms and user interactions, fully integrated with Azure cloud services.
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+To get started with ReAccess Design Studio, follow these steps:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1. Clone the repository: `git clone https://github.com/ReAccess/reaccess-design-studio.git`
+2. Install the necessary dependencies: `npm install`
+3. Start the development server: `npm start`
+4. Open your browser and navigate to `http://localhost:3000` to access the ReAccess Design Studio interface.
 
-### `npm test`
+## Documentation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+For detailed documentation on how to use ReAccess Design Studio, refer to the [User Guide](./docs/user-guide.md).
 
-### `npm run build`
+## Contributing
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+We appreciate your interest in contributing to ReAccess Design Studio. If you are an employee and would like to request access to contribute, please follow our internal guidelines for requesting access. Thank you for your understanding.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## License
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+ReAccess Design Studio is licensed under the [MIT License](./LICENSE).
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
