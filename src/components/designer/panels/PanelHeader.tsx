@@ -1,14 +1,12 @@
 // src/components/designer/panels/PanelHeader.tsx
 import React from 'react';
-import { XMarkIcon } from '@heroicons/react/24/outline'; // Using a different close icon
+import { XMarkIcon } from '@heroicons/react/24/outline';
 
-interface PanelHeaderProps {
-  title: string;
-  isDarkMode: boolean;
-  onClose: () => void;
-}
-
-const PanelHeader: React.FC<PanelHeaderProps> = ({ title, isDarkMode, onClose }) => {
+const PanelHeader: React.FC<{ title: string; onClose: () => void; isDarkMode: boolean }> = ({
+  title,
+  onClose,
+  isDarkMode,
+}) => {
   return (
     <div
       className={`flex items-center justify-between p-4 ${

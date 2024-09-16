@@ -1,16 +1,14 @@
-// src/components/designer/craft/Editor.tsx
+// src/components/designer/editor/CraftEditor.tsx
 import React from 'react';
-import { Editor, Frame, Element } from '@craftjs/core';
+import { Frame, Element } from '@craftjs/core';
+import Container from './Container';
 
-const CraftEditor: React.FC = () => {
+const CraftEditor: React.FC<{ isDarkMode: boolean }> = ({ isDarkMode }) => {
   return (
-    <Editor resolver={{ }}>
-      <Frame>
-        <Element canvas is="div" className="p-4">
-
-        </Element>
-      </Frame>
-    </Editor>
+    <Frame>
+      <Element is={Container} canvas>
+      </Element>
+    </Frame>
   );
 };
 

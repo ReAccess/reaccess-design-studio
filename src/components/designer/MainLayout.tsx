@@ -19,7 +19,8 @@ const MainLayout: React.FC = () => {
     <div className={`flex flex-col h-screen ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-900'}`}>
       <Navbar isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
       <div className="flex flex-grow relative">
-        <div className={`relative z-20 w-48 bg-${isDarkMode ? 'gray-800' : 'white'} border-r border-gray-300 p-4`}>
+      {/* Side panel */}
+      <div className={`relative z-20 w-48 bg-${isDarkMode ? 'gray-800' : 'white'} border-r border-gray-300 p-4`}>
           <button
             onClick={() => togglePanel('SiteTheme')}
             className="flex items-center w-full mb-4 p-2 rounded hover:bg-blue-100 transition-all duration-300"
@@ -42,7 +43,7 @@ const MainLayout: React.FC = () => {
 
         {/* Main Content Area with Craft.js Editor */}
         <div className="flex-1 relative p-4">
-          <CraftEditor />
+          <CraftEditor isDarkMode={isDarkMode} />
         </div>
       </div>
     </div>
