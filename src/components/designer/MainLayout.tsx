@@ -3,15 +3,16 @@ import React, { useState } from 'react';
 import Navbar from './Navbar';
 import SiteThemePanel from './panels/SiteThemePanel';
 import SectionPanel from './panels/SectionPanel';
+import CraftEditor from './editor/CraftEditor';
 import { AdjustmentsHorizontalIcon } from '@heroicons/react/24/outline';
 
 const MainLayout: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [openPanel, setOpenPanel] = useState<string | null>(null); // Track which panel is open
+  const [openPanel, setOpenPanel] = useState<string | null>(null);
 
   const toggleTheme = () => setIsDarkMode(!isDarkMode);
   const togglePanel = (panelName: string) => {
-    setOpenPanel(openPanel === panelName ? null : panelName); // Toggle between opening/closing a specific panel
+    setOpenPanel(openPanel === panelName ? null : panelName);
   };
 
   return (
@@ -39,9 +40,9 @@ const MainLayout: React.FC = () => {
         <SiteThemePanel isOpen={openPanel === 'SiteTheme'} isDarkMode={isDarkMode} togglePanel={() => togglePanel('SiteTheme')} />
         <SectionPanel isOpen={openPanel === 'Section'} isDarkMode={isDarkMode} togglePanel={() => togglePanel('Section')} />
 
-        {/* Main Content Area */}
+        {/* Main Content Area with Craft.js Editor */}
         <div className="flex-1 relative p-4">
-          <div>Main editor area...</div>
+          <CraftEditor />
         </div>
       </div>
     </div>
