@@ -12,15 +12,18 @@ interface ContainerPanelProps {
 
 const ContainerPanel: React.FC<ContainerPanelProps> = ({ isOpen, togglePanel }) => {
   const { connectors } = useEditor();
-  const isDarkMode = useRecoilValue(darkModeState); // Use Recoil state
+  const isDarkMode = useRecoilValue(darkModeState);
+  const panelWidth = '18rem';
 
   return (
     <div
-      className={`absolute top-0 left-16 transform ${
-        isOpen ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'
-      } w-72 h-full ${
-        isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'
-      } shadow-lg z-10 transition-all duration-700 ease-in-out`}
+      className={`flex-shrink-0 h-full shadow-lg z-10 transition-transform duration-700 ease-in-out ${
+        isOpen ? 'translate-x-0' : '-translate-x-full'
+      } ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}
+      style={{
+        width: panelWidth,
+        flexBasis: panelWidth, // Sets the initial basis for flex sizing
+      }}
     >
       <PanelHeader title="Add Container" onClose={togglePanel} />
       <div className="p-4">

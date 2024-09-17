@@ -1,11 +1,13 @@
 import React from 'react';
 import { Frame, Element } from '@craftjs/core';
-import Container from './Container';
+import Surface from './Surface';
 
 const CraftEditor: React.FC = () => {
   return (
     <Frame>
-      <Element is={Container} canvas>
+      {/* Define the main drop surface using the Surface component */}
+      <Element is={Surface} canvas>
+        {/* You can add default elements here or leave it empty */}
       </Element>
     </Frame>
   );
