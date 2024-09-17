@@ -1,13 +1,16 @@
-// src/components/designer/editorNavbar/EditorNavbar.tsx
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 import PublishButton from './PublishButton';
 import SaveButton from './SaveButton';
 import UndoRedoButtons from './UndoRedoButtons';
 import ZoomButton from './ZoomButton';
+import { darkModeState } from '../../../atoms/themeAtoms';
 
 const EditorNavbar: React.FC = () => {
+  const isDarkMode = useRecoilValue(darkModeState); // Use Recoil state
+
   return (
-    <div className="w-full h-12 bg-white flex items-center justify-end px-4 shadow-sm space-x-4 border-b border-gray-300">
+    <div className={`w-full h-12 ${isDarkMode ? 'bg-gray-800' : 'bg-white'} flex items-center justify-end px-4 shadow-sm space-x-4 border-b border-gray-300`}>
       {/* Zoom Button */}
       <ZoomButton />
 

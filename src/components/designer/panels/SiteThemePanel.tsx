@@ -1,14 +1,16 @@
-// src/components/designer/panels/SiteThemePanel.tsx
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 import PanelHeader from './PanelHeader';
+import { darkModeState } from '../../../atoms/themeAtoms';
 
 interface SiteThemePanelProps {
   isOpen: boolean;
-  isDarkMode: boolean;
   togglePanel: () => void;
 }
 
-const SiteThemePanel: React.FC<SiteThemePanelProps> = ({ isOpen, isDarkMode, togglePanel }) => {
+const SiteThemePanel: React.FC<SiteThemePanelProps> = ({ isOpen, togglePanel }) => {
+  const isDarkMode = useRecoilValue(darkModeState);
+
   return (
     <div
       className={`absolute top-0 left-16 transform ${
@@ -17,7 +19,7 @@ const SiteThemePanel: React.FC<SiteThemePanelProps> = ({ isOpen, isDarkMode, tog
         isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'
       } shadow-lg z-10 transition-all duration-700 ease-in-out`}
     >
-      <PanelHeader title="Site Design" isDarkMode={isDarkMode} onClose={togglePanel} />
+      <PanelHeader title="Site Design" onClose={togglePanel} />
       <div className="p-4">Site Theme panel content here...</div>
     </div>
   );

@@ -1,12 +1,12 @@
-// src/components/ThemeButton.tsx
 import React from 'react';
+import { useRecoilState } from 'recoil';
+import { darkModeState } from '../../atoms/themeAtoms';
 
-interface ThemeButtonProps {
-  isDarkMode: boolean;
-  toggleTheme: () => void;
-}
+const ThemeButton: React.FC = () => {
+  const [isDarkMode, setIsDarkMode] = useRecoilState(darkModeState); // Use Recoil state
 
-const ThemeButton: React.FC<ThemeButtonProps> = ({ isDarkMode, toggleTheme }) => {
+  const toggleTheme = () => setIsDarkMode(!isDarkMode); // Toggle dark mode state
+
   return (
     <button onClick={toggleTheme} className="text-sm border px-2 py-1 rounded">
       {isDarkMode ? 'Light Mode' : 'Dark Mode'}

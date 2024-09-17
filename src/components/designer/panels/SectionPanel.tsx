@@ -1,14 +1,16 @@
-// src/components/designer/panels/SectionPanel.tsx
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 import PanelHeader from './PanelHeader';
+import { darkModeState } from '../../../atoms/themeAtoms';
 
 interface SectionPanelProps {
   isOpen: boolean;
-  isDarkMode: boolean;
   togglePanel: () => void;
 }
 
-const SectionPanel: React.FC<SectionPanelProps> = ({ isOpen, isDarkMode, togglePanel }) => {
+const SectionPanel: React.FC<SectionPanelProps> = ({ isOpen, togglePanel }) => {
+  const isDarkMode = useRecoilValue(darkModeState);
+
   return (
     <div
       className={`absolute top-0 left-16 transform ${
@@ -17,7 +19,7 @@ const SectionPanel: React.FC<SectionPanelProps> = ({ isOpen, isDarkMode, toggleP
         isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'
       } shadow-lg z-10 transition-all duration-700 ease-in-out`}
     >
-      <PanelHeader title="Add Section" isDarkMode={isDarkMode} onClose={togglePanel} />
+      <PanelHeader title="Add Section" onClose={togglePanel} />
       <div className="p-4">Section panel content here...</div>
     </div>
   );

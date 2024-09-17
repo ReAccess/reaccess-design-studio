@@ -1,12 +1,11 @@
-// src/components/designer/panels/PanelHeader.tsx
 import React from 'react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { useRecoilValue } from 'recoil';
+import { darkModeState } from '../../../atoms/themeAtoms';
 
-const PanelHeader: React.FC<{ title: string; onClose: () => void; isDarkMode: boolean }> = ({
-  title,
-  onClose,
-  isDarkMode,
-}) => {
+const PanelHeader: React.FC<{ title: string; onClose: () => void }> = ({ title, onClose }) => {
+  const isDarkMode = useRecoilValue(darkModeState); // Use Recoil state
+
   return (
     <div
       className={`flex items-center justify-between p-4 ${
