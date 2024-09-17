@@ -4,7 +4,7 @@ import Navbar from './Navbar';
 import SiteThemePanel from './panels/SiteThemePanel';
 import SectionPanel from './panels/SectionPanel';
 import ContainerPanel from './panels/ContainerPanel';
-import SidePanel from './SidePanel';
+import SidePanel from './SidePanel'; 
 import CraftEditor from './editor/CraftEditor';
 
 const MainLayout: React.FC = () => {
@@ -21,7 +21,7 @@ const MainLayout: React.FC = () => {
       <Navbar isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
       <div className="flex flex-grow relative">
         {/* Side Panel */}
-        <SidePanel togglePanel={togglePanel} isDarkMode={isDarkMode} />
+        <SidePanel togglePanel={togglePanel} isDarkMode={isDarkMode} activePanel={openPanel} />
 
         {/* Conditionally Render Panels */}
         <SiteThemePanel isOpen={openPanel === 'SiteTheme'} isDarkMode={isDarkMode} togglePanel={() => togglePanel('SiteTheme')} />
