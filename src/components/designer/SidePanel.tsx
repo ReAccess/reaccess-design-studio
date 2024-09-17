@@ -35,7 +35,9 @@ const SidePanel: React.FC<SidePanelProps> = ({ togglePanel, isDarkMode, activePa
         {/* Floating Label */}
         <span
           style={{ top: '40%' }} // Inline style for correct alignment
-          className={`absolute left-16 transform -translate-y-1/2 px-4 py-2.5 rounded-md text-sm font-medium shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out whitespace-nowrap pointer-events-none ${
+          className={`absolute left-16 transform -translate-y-1/2 px-4 py-2.5 rounded-md text-sm font-medium shadow-lg ${
+            activePanel === 'SiteTheme' ? 'opacity-0' : 'opacity-0 group-hover:opacity-100'
+          } transition-opacity duration-300 ease-in-out whitespace-nowrap pointer-events-none ${
             isDarkMode ? 'bg-gray-700 text-white' : 'bg-white text-black'
           }`}
         >
@@ -58,7 +60,9 @@ const SidePanel: React.FC<SidePanelProps> = ({ togglePanel, isDarkMode, activePa
         {/* Floating Label */}
         <span
           style={{ top: '40%' }} // Inline style for correct alignment
-          className={`absolute left-16 transform -translate-y-1/2 px-4 py-2.5 rounded-md text-sm font-medium shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out whitespace-nowrap pointer-events-none ${
+          className={`absolute left-16 transform -translate-y-1/2 px-4 py-2.5 rounded-md text-sm font-medium shadow-lg ${
+            activePanel === 'Section' ? 'opacity-0' : 'opacity-0 group-hover:opacity-100'
+          } transition-opacity duration-300 ease-in-out whitespace-nowrap pointer-events-none ${
             isDarkMode ? 'bg-gray-700 text-white' : 'bg-white text-black'
           }`}
         >
@@ -81,7 +85,9 @@ const SidePanel: React.FC<SidePanelProps> = ({ togglePanel, isDarkMode, activePa
         {/* Floating Label */}
         <span
           style={{ top: '40%' }} // Inline style for correct alignment
-          className={`absolute left-16 transform -translate-y-1/2 px-4 py-2.5 rounded-md text-sm font-medium shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out whitespace-nowrap pointer-events-none ${
+          className={`absolute left-16 transform -translate-y-1/2 px-4 py-2.5 rounded-md text-sm font-medium shadow-lg ${
+            activePanel === 'Container' ? 'opacity-0' : 'opacity-0 group-hover:opacity-100'
+          } transition-opacity duration-300 ease-in-out whitespace-nowrap pointer-events-none ${
             isDarkMode ? 'bg-gray-700 text-white' : 'bg-white text-black'
           }`}
         >
