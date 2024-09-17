@@ -4,12 +4,13 @@ import {
   AdjustmentsHorizontalIcon,
   DocumentIcon,
   ArchiveBoxIcon,
+  EyeIcon
 } from '@heroicons/react/24/outline';
 
 interface SidePanelProps {
   togglePanel: (panelName: string) => void;
   isDarkMode: boolean;
-  activePanel: string | null;
+  activePanel: string | null; // Track the active panel
 }
 
 const SidePanel: React.FC<SidePanelProps> = ({ togglePanel, isDarkMode, activePanel }) => {
@@ -20,6 +21,18 @@ const SidePanel: React.FC<SidePanelProps> = ({ togglePanel, isDarkMode, activePa
     <div
       className={`relative z-20 w-16 bg-${isDarkMode ? 'gray-800' : 'white'} border-r border-gray-300 p-2 flex flex-col items-center`}
     >
+      {/* Current View Button */}
+      <div className="group relative">
+        <button
+          onClick={() => togglePanel('')}
+          className={`flex items-center justify-center w-12 h-12 mb-4 p-2 rounded-full ${
+            !activePanel ? 'bg-blue-200 text-blue-500' : 'hover:scale-110 hover:bg-blue-200 hover:text-blue-500'
+          }`}
+        >
+          <EyeIcon className="w-8 h-8" />
+        </button>
+      </div>
+
       {/* Site Theme Button */}
       <div className="group relative">
         <button
