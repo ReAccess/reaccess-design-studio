@@ -1,15 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Frame, Element } from '@craftjs/core';
 import Surface from './Surface';
+import { useDocumentDragEvents } from './../../../hooks/useDocumentDragEvents';
 
 const CraftEditor: React.FC = () => {
+  const [isAlignedCenter, setIsAlignedCenter] = useState(false);
+
+  // Handle the drag event and determine alignment
+  const handleDrag = (xPosition: number) => {
+    const editorElement = document.querySelector('.craft-editor');
+    const editorWidth = editorElement ? editorElement.clientWidth : 0;
+    const centerPosition = editorWidth / 2;
+    const threshold = 10; // Adjust for sensitivity
+
+    if (Math.abs(xPosition - centerPosition) < threshold) {
+      setIsAlignedCenter(true); // Show purple center guide
+    } else {
+      setIsAlignedCenter(false); // Hide center guide
+    }
+  };
+
+  // Reset alignment when drop happens
+  const handleDrop = () => {
+    setIsAlignedCenter(false);
+  };
+
+  // Use the drag event listener hook
+  useDocumentDragEvents(handleDrag, handleDrop);
+
   return (
-    <Frame>
-      {/* Define the main drop surface using the Surface component */}
-      <Element is={Surface} canvas>
-        {/* You can add default elements here or leave it empty */}
-      </Element>
-    </Frame>
+    <div className="relative h-full craft-editor">
+      {/* Dotted alignment lines */}
+      <div className="absolute top-0 left-[10%] h-full border-l-2 border-dashed border-black z-10" style={{ background: 'repeating-linear-gradient(black, black 5px, white 5px, white 10px)' }}></div>
+      <div className="absolute top-0 right-[10%] h-full border-l-2 border-dashed border-black z-10" style={{ background: 'repeating-linear-gradient(black, black 5px, white 5px, white 10px)' }}></div>
+
+      {/* Purple center alignment guide */}
+      {isAlignedCenter && (
+        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 h-full w-[1px] bg-purple-600 z-20"></div>
+      )}
+
+      <Frame>
+        <Element is={Surface} canvas>
+          {/* Main editor drop surface */}
+        </Element>
+      </Frame>
+    </div>
   );
 };
 

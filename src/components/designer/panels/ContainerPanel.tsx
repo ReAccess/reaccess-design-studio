@@ -4,6 +4,7 @@ import { useRecoilValue } from 'recoil';
 import PanelHeader from './PanelHeader';
 import DraggableItem from '../editor/DraggableItem';
 import { darkModeState } from '../../../atoms/themeAtoms';
+import Container from '../editor/Container';
 
 interface ContainerPanelProps {
   isOpen: boolean;
@@ -28,7 +29,7 @@ const ContainerPanel: React.FC<ContainerPanelProps> = ({ isOpen, togglePanel }) 
       <PanelHeader title="Add Container" onClose={togglePanel} />
       <div className="p-4">
         {/* Draggable Item for the Container */}
-        <DraggableItem refFn={(ref) => connectors.create(ref as HTMLElement, <div className="p-4">New Container</div>)}>
+        <DraggableItem refFn={(ref) => connectors.create(ref as HTMLElement, <Container />)}>
           <span className="icon">📦</span>
           <span className="ml-2">Container</span>
         </DraggableItem>
