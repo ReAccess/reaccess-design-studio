@@ -11,9 +11,9 @@ const ThemeButton: React.FC = () => {
   return (
     <button onClick={toggleTheme} className="transition-colors duration-300 p-2 rounded-full focus:outline-none">
       {isDarkMode ? (
-        <SunIcon className="w-6 h-6 text-yellow-400 hover:text-yellow-500" />
+        <SunIcon data-testid="sun-icon" className="w-6 h-6 text-yellow-400 hover:text-yellow-500" />
       ) : (
-        <MoonIcon className="w-6 h-6 text-gray-600 hover:text-gray-800" />
+        <MoonIcon data-testid="moon-icon" className="w-6 h-6 text-gray-600 hover:text-gray-800" />
       )}
     </button>
   );
