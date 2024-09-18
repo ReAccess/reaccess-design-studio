@@ -1,3 +1,4 @@
+// src/components/designer/elements/Section.tsx
 import React from "react";
 import { useNode } from "@craftjs/core";
 
@@ -15,10 +16,14 @@ export const Section: React.FC<SectionProps> & { craft?: any } = ({
   padding = "20px",
   children,
   style = {},
-  borderRadius = "0", // No rounded corners by default
+  borderRadius = "0",
   height = "300px",
 }) => {
-  const { connectors: { connect, drag }, hasSelectedNode, isHovered } = useNode((node) => ({
+  const {
+    connectors: { connect, drag },
+    hasSelectedNode,
+    isHovered,
+  } = useNode((node) => ({
     hasSelectedNode: node.events.selected,
     isHovered: node.events.hovered,
   }));
@@ -26,13 +31,13 @@ export const Section: React.FC<SectionProps> & { craft?: any } = ({
   return (
     <div
       ref={(ref) => connect(drag(ref as HTMLElement))}
+      className="relative w-full"
       style={{
         background,
         padding,
-        border: hasSelectedNode || isHovered ? "2px solid blue" : "1px solid #ddd",
+        border: hasSelectedNode || isHovered ? "2px solid #008080" : "1px solid #ddd",
         borderRadius,
         minHeight: height,
-        width: "100%", // Full width for the Section
         boxSizing: "border-box",
         display: "flex",
         flexDirection: "column",
@@ -40,6 +45,21 @@ export const Section: React.FC<SectionProps> & { craft?: any } = ({
       }}
     >
       {children}
+
+      {/* Label box - Positioned with a slight offset to account for the border */}
+      {(hasSelectedNode || isHovered) && (
+        <div
+          className="absolute -top-0 right-0 transform translate-y-[-100%] bg-[#008080] text-sm font-semibold text-white px-2 py-1 shadow-md border border-[#008080] z-20"
+          style={{
+            top: "-2px", // Adjusted for alignment
+            right: "-2px", // Adjusted for alignment
+            whiteSpace: "nowrap",
+            borderRadius: "0", // No rounded corners
+          }}
+        >
+          Section: untitled
+        </div>
+      )}
     </div>
   );
 };
