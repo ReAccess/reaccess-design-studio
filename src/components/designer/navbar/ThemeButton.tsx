@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRecoilState } from 'recoil';
-import { darkModeState } from '../../atoms/themeAtoms';
+import { darkModeState } from '../../../atoms/themeAtoms';
 import { SunIcon, MoonIcon } from '@heroicons/react/24/solid';
 
 const ThemeButton: React.FC = () => {

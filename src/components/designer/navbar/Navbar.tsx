@@ -1,8 +1,8 @@
 import React from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { previewModeState } from '../../atoms/previewAtoms';
+import { previewModeState } from '../../../atoms/previewAtoms';
 import ThemeButton from './ThemeButton';
-import { darkModeState } from '../../atoms/themeAtoms';
+import { darkModeState } from '../../../atoms/themeAtoms';
 
 const Navbar: React.FC = () => {
   const isDarkMode = useRecoilValue(darkModeState);

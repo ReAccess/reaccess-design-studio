@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { previewModeState } from '../../atoms/previewAtoms';
-import Navbar from './Navbar';
+import Navbar from './navbar/Navbar';
 import EditorNavbar from './editorNavbar/EditorNavbar';
 import SiteThemePanel from './panels/SiteThemePanel';
 import SectionPanel from './panels/SectionPanel';
