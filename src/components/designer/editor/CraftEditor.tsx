@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
-import { Frame, Element } from '@craftjs/core';
+import { Frame, Element, useEditor } from '@craftjs/core';
 import Surface from './Surface';
 import { useDocumentDragEvents } from './../../../hooks/useDocumentDragEvents';
+import { useSaveWithDebounce } from '../../../hooks/useSaveWithDebounce';
 
 const CraftEditor: React.FC = () => {
+  const { query, state } = useEditor((state) => ({
+    state: state,
+  }));
   const [isAlignedCenter, setIsAlignedCenter] = useState(false);
 
   // Handle the drag event and determine alignment
@@ -20,9 +24,18 @@ const CraftEditor: React.FC = () => {
     }
   };
 
+   // Use the save hook with debounce for other save operations
+   const debouncedSave = useSaveWithDebounce(200); 
+
   // Reset alignment when drop happens
   const handleDrop = () => {
     setIsAlignedCenter(false);
+    console.log("Element placed on design surface:", state.nodes);
+    // Add a small delay to ensure the state is updated after the drop
+    setTimeout(() => {
+      const serializedNodes = query.serialize();
+      debouncedSave(serializedNodes); // Perform the save with debounce
+    }, 100);
   };
 
   // Use the drag event listener hook
