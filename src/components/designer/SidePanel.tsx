@@ -3,7 +3,7 @@ import {
   AdjustmentsHorizontalIcon,
   DocumentIcon,
   ArchiveBoxIcon,
-  EyeIcon
+  EyeIcon,
 } from '@heroicons/react/24/outline';
 import { useRecoilValue } from 'recoil';
 import { darkModeState } from '../../atoms/themeAtoms';
@@ -21,14 +21,18 @@ const SidePanel: React.FC<SidePanelProps> = ({ togglePanel, activePanel }) => {
 
   return (
     <div
-      className={`relative z-20 w-16 ${isDarkMode ? 'bg-gray-800' : 'bg-white'} border-r border-gray-300 p-2 flex flex-col items-center`}
+      className={`relative z-20 w-16 ${
+        isDarkMode ? 'bg-gray-800' : 'bg-white'
+      } border-r border-gray-300 p-2 flex flex-col items-center`}
     >
       {/* Current View Button */}
       <div className="group relative">
         <button
           onClick={() => togglePanel('')}
           className={`flex items-center justify-center w-12 h-12 mb-4 p-2 rounded-full ${
-            !activePanel ? 'bg-blue-200 text-blue-500' : 'hover:scale-110 hover:bg-blue-300 hover:text-blue-600'
+            !activePanel
+              ? 'bg-blue-200 text-blue-500'
+              : 'hover:scale-110 hover:bg-blue-300 hover:text-blue-600'
           }`}
         >
           <EyeIcon className="w-8 h-8" />
@@ -52,8 +56,8 @@ const SidePanel: React.FC<SidePanelProps> = ({ togglePanel, activePanel }) => {
           onClick={() => togglePanel('SiteTheme')}
           className={`${baseButtonClasses} ${
             activePanel === 'SiteTheme'
-              ? 'bg-green-200 text-green-500'
-              : 'hover:scale-110 hover:bg-green-300 hover:text-green-600'
+              ? 'bg-yellow-200 text-yellow-500'
+              : 'hover:scale-110 hover:bg-yellow-300 hover:text-yellow-600'
           }`}
         >
           <AdjustmentsHorizontalIcon className="w-8 h-8" />
@@ -77,8 +81,8 @@ const SidePanel: React.FC<SidePanelProps> = ({ togglePanel, activePanel }) => {
           onClick={() => togglePanel('Section')}
           className={`${baseButtonClasses} ${
             activePanel === 'Section'
-              ? 'bg-red-200 text-red-500'
-              : 'hover:scale-110 hover:bg-red-300 hover:text-red-600'
+              ? 'bg-teal-200 text-teal-500'
+              : 'hover:scale-110 hover:bg-teal-300 hover:text-teal-600'
           }`}
         >
           <DocumentIcon className="w-8 h-8" />
