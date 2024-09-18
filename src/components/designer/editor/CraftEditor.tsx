@@ -31,8 +31,24 @@ const CraftEditor: React.FC = () => {
   return (
     <div className="relative h-full craft-editor">
       {/* Dotted alignment lines */}
-      <div className="absolute top-0 left-[10%] h-full border-l-2 border-dashed border-black z-10" style={{ background: 'repeating-linear-gradient(black, black 5px, white 5px, white 10px)' }}></div>
-      <div className="absolute top-0 right-[10%] h-full border-l-2 border-dashed border-black z-10" style={{ background: 'repeating-linear-gradient(black, black 5px, white 5px, white 10px)' }}></div>
+      <div
+        className="absolute top-0 left-[10%] h-full z-10"
+        style={{
+          backgroundImage: 'linear-gradient(to bottom, black 50%, transparent 0%)',
+          backgroundPosition: 'left',
+          backgroundSize: '2px 12px',
+          width: '2px',
+        }}
+      ></div>
+      <div
+        className="absolute top-0 right-[10%] h-full z-10"
+        style={{
+          backgroundImage: 'linear-gradient(to bottom, black 50%, transparent 0%)',
+          backgroundPosition: 'right',
+          backgroundSize: '2px 12px',
+          width: '2px',
+        }}
+      ></div>
 
       {/* Purple center alignment guide */}
       {isAlignedCenter && (
