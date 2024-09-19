@@ -7,7 +7,7 @@ import SiteThemePanel from './panels/SiteThemePanel';
 import SectionPanel from './panels/SectionPanel';
 import ContainerPanel from './panels/ContainerPanel';
 import CraftEditor from './editor/CraftEditor';
-import SidePanel from './SidePanel';
+import SidePanel from './leftSideNavbar/SidePanel';
 import { darkModeState } from '../../atoms/themeAtoms';
 import { PreviewPage } from './PreviewPage';
 

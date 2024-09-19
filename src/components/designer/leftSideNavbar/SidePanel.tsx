@@ -6,11 +6,11 @@ import {
   EyeIcon,
 } from '@heroicons/react/24/outline';
 import { useRecoilValue } from 'recoil';
-import { darkModeState } from '../../atoms/themeAtoms';
+import { darkModeState } from '../../../atoms/themeAtoms';
 
 interface SidePanelProps {
   togglePanel: (panelName: string) => void;
-  activePanel: string | null; // Track the active panel
+  activePanel: string | null;
 }
 
 const SidePanel: React.FC<SidePanelProps> = ({ togglePanel, activePanel }) => {
