@@ -3,6 +3,7 @@ import { useRecoilValue } from 'recoil';
 import PanelHeader from './PanelHeader';
 import { darkModeState } from '../../../atoms/themeAtoms';
 import { panelSizeState } from '../../../atoms/panelSizeAtoms';
+import { editorSaveDataState } from '../../../atoms/editorSaveDataAtom';
 import ThemeSelection from './selectors/ThemeSelection';
 
 interface SiteThemePanelProps {
@@ -13,9 +14,14 @@ interface SiteThemePanelProps {
 const SiteThemePanel: React.FC<SiteThemePanelProps> = ({ isOpen, togglePanel }) => {
   const isDarkMode = useRecoilValue(darkModeState);
   const panelWidth = useRecoilValue(panelSizeState);
+  const editorSaveData = useRecoilValue(editorSaveDataState); // Access current theme
+
   const [showThemeSelection, setShowThemeSelection] = useState(false);
 
   const toggleThemeSelection = () => setShowThemeSelection(!showThemeSelection);
+
+  // Get current theme details
+  const { name, description, colors } = editorSaveData.theme;
 
   return (
     <div
@@ -29,20 +35,17 @@ const SiteThemePanel: React.FC<SiteThemePanelProps> = ({ isOpen, togglePanel }) 
     >
       <PanelHeader title="Site Design" onClose={togglePanel} />
 
-      <div className="p-4 h-full overflow-y-auto">
+      <div className="p-4 h-full overflow-y-auto pb-10">
         {!showThemeSelection ? (
           <div>
             <div className="w-full p-4 border rounded-lg shadow-md">
-              <h3 className="text-lg font-bold">Oceanic Blue</h3>
+              <h3 className="text-lg font-bold">{name}</h3>
               <div className="flex space-x-2 mt-2">
-                <div className="w-8 h-8 rounded" style={{ backgroundColor: '#1E90FF' }}></div>
-                <div className="w-8 h-8 rounded" style={{ backgroundColor: '#00BFFF' }}></div>
-                <div className="w-8 h-8 rounded" style={{ backgroundColor: '#20B2AA' }}></div>
-                <div className="w-8 h-8 rounded" style={{ backgroundColor: '#3CB371' }}></div>
+                {colors.map((color, index) => (
+                  <div key={index} className="w-8 h-8 rounded" style={{ backgroundColor: color }}></div>
+                ))}
               </div>
-              <p className="text-sm text-gray-500 mt-2">
-                A calm, ocean-inspired palette with soothing blues and greens.
-              </p>
+              <p className="text-sm text-gray-500 mt-2">{description}</p>
               <button
                 className="mt-4 text-blue-500 hover:text-blue-700 underline block mx-auto"
                 onClick={toggleThemeSelection}
