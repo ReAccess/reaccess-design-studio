@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { previewModeState } from '../../atoms/previewAtoms';
 import { panelSizeState } from '../../atoms/panelSizeAtoms';
+import { editorLoadingState } from '../../atoms/editorSaveDataAtom';
 import Navbar from './navbar/Navbar';
 import EditorNavbar from './editorNavbar/EditorNavbar';
 import SiteThemePanel from './panels/SiteThemePanel';
@@ -12,12 +13,17 @@ import SidePanel from './leftSideNavbar/SidePanel';
 import { darkModeState } from '../../atoms/themeAtoms';
 import { PreviewPage } from './PreviewPage';
 import PageDesignPanel from './panels/PageDesignPanel';
+import { useInitializeEditorData } from '../../hooks/useInitializeEditorData';
 
 const MainLayout: React.FC = () => {
   const isDarkMode = useRecoilValue(darkModeState);
   const isPreviewMode = useRecoilValue(previewModeState);
+  const isLoading = useRecoilValue(editorLoadingState);
   const setPanelSize = useSetRecoilState(panelSizeState);
-
+  
+  // Initialize editor data
+  useInitializeEditorData(); 
+  
   const [openPanel, setOpenPanel] = useState<string | null>(null);
 
   const togglePanel = (panelName: string, size: string) => {
@@ -29,8 +35,13 @@ const MainLayout: React.FC = () => {
     <div className={`flex flex-col h-screen overflow-hidden ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-900'}`}>
       <Navbar />
 
-      {/* Show Preview Page if in preview mode */}
-      {isPreviewMode ? (
+      {/* Show loading spinner or shimmer when editor data is loading */}
+      {isLoading ? (
+        <div className="flex-grow flex items-center justify-center">
+          {/* Replace with your spinner or shimmer */}
+          <div className="loader">Loading...</div>
+        </div>
+      ) : isPreviewMode ? (
         <PreviewPage />
       ) : (
         <>

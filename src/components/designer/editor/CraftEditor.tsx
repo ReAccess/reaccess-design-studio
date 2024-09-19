@@ -1,44 +1,45 @@
 import React, { useState } from 'react';
 import { Frame, Element, useEditor } from '@craftjs/core';
 import Surface from './Surface';
-import { useDocumentDragEvents } from './../../../hooks/useDocumentDragEvents';
+import { useDocumentDragEvents } from '../../../hooks/useDocumentDragEvents';
 import { useSaveWithDebounce } from '../../../hooks/useSaveWithDebounce';
+import { useRecoilValue } from 'recoil';
+import { editorWorkingState } from '../../../atoms/editorSaveDataAtom';
 
 const CraftEditor: React.FC = () => {
-  const { query, state } = useEditor((state) => ({
-    state: state,
-  }));
+  const { query } = useEditor(() => ({ }));
+  
+  // Use uncompressed working state
+  const workingEditorState = useRecoilValue(editorWorkingState);
+
   const [isAlignedCenter, setIsAlignedCenter] = useState(false);
+
+  // Use the save hook with debounce for other save operations
+  const debouncedSave = useSaveWithDebounce(200);
 
   // Handle the drag event and determine alignment
   const handleDrag = (xPosition: number) => {
     const editorElement = document.querySelector('.craft-editor');
     const editorWidth = editorElement ? editorElement.clientWidth : 0;
     const centerPosition = editorWidth / 2;
-    const threshold = 10; // Adjust for sensitivity
+    const threshold = 10;
 
     if (Math.abs(xPosition - centerPosition) < threshold) {
-      setIsAlignedCenter(true); // Show purple center guide
+      setIsAlignedCenter(true);
     } else {
-      setIsAlignedCenter(false); // Hide center guide
+      setIsAlignedCenter(false);
     }
   };
 
-   // Use the save hook with debounce for other save operations
-   const debouncedSave = useSaveWithDebounce(200); 
-
-  // Reset alignment when drop happens
   const handleDrop = () => {
     setIsAlignedCenter(false);
-    console.log("Element placed on design surface:", state.nodes);
-    // Add a small delay to ensure the state is updated after the drop
+
     setTimeout(() => {
       const serializedNodes = query.serialize();
       debouncedSave(serializedNodes); // Perform the save with debounce
     }, 100);
   };
 
-  // Use the drag event listener hook
   useDocumentDragEvents(handleDrag, handleDrop);
 
   return (
@@ -68,7 +69,7 @@ const CraftEditor: React.FC = () => {
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 h-full w-[1px] bg-purple-600 z-20"></div>
       )}
 
-      <Frame>
+      <Frame data={workingEditorState}>
         <Element is={Surface} canvas>
           {/* Main editor drop surface */}
         </Element>
