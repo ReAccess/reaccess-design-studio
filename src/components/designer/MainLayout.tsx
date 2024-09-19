@@ -26,7 +26,7 @@ const MainLayout: React.FC = () => {
   };
 
   return (
-    <div className={`flex flex-col h-screen ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-900'}`}>
+    <div className={`flex flex-col h-screen overflow-hidden ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-900'}`}>
       <Navbar />
 
       {/* Show Preview Page if in preview mode */}
@@ -35,12 +35,12 @@ const MainLayout: React.FC = () => {
       ) : (
         <>
           <EditorNavbar />
-          <div className="flex flex-grow relative transition-all duration-700 ease-in-out">
+          <div className="flex flex-grow overflow-hidden transition-all duration-700 ease-in-out">
             <SidePanel togglePanel={togglePanel} activePanel={openPanel} />
 
             {/* Render panels based on openPanel */}
             {openPanel === 'SiteTheme' && (
-              <SiteThemePanel isOpen={true} togglePanel={() => togglePanel('SiteTheme', '20rem')} />
+              <SiteThemePanel isOpen={true} togglePanel={() => togglePanel('SiteTheme', '22rem')} />
             )}
             {openPanel === 'PageDesign' && (
               <PageDesignPanel isOpen={true} togglePanel={() => togglePanel('PageDesign', '25rem')} />
@@ -53,7 +53,7 @@ const MainLayout: React.FC = () => {
             )}
 
             {/* Main Content Area with Craft.js Editor */}
-            <div className={`flex-grow relative p-4 transition-all duration-700 ease-in-out`}>
+            <div className={`flex-grow relative p-4 overflow-y-auto transition-all duration-700 ease-in-out`}>
               <CraftEditor />
             </div>
           </div>

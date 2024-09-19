@@ -25,7 +25,7 @@ const SidePanel: React.FC<SidePanelProps> = ({ togglePanel, activePanel }) => {
         darkMode={isDarkMode}
       />
       <SiteThemeButton
-        onClick={() => togglePanel('SiteTheme', '20rem')}
+        onClick={() => togglePanel('SiteTheme', '22rem')}
         active={activePanel === 'SiteTheme'}
         darkMode={isDarkMode}
       />
