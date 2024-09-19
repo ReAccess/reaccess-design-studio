@@ -10,6 +10,7 @@ import CraftEditor from './editor/CraftEditor';
 import SidePanel from './leftSideNavbar/SidePanel';
 import { darkModeState } from '../../atoms/themeAtoms';
 import { PreviewPage } from './PreviewPage';
+import PageDesignPanel from './panels/PageDesignPanel';
 
 const MainLayout: React.FC = () => {
   const isDarkMode = useRecoilValue(darkModeState);
@@ -43,6 +44,14 @@ const MainLayout: React.FC = () => {
               style={{ width: panelWidth }}
             >
               <SiteThemePanel isOpen={openPanel === 'SiteTheme'} togglePanel={() => togglePanel('SiteTheme')} />
+            </div>
+            <div
+              className={`absolute top-0 left-16 h-full transition-transform duration-700 ease-in-out ${
+                openPanel === 'PageDesign' ? 'translate-x-0' : '-translate-x-full'
+              }`}
+              style={{ width: panelWidth }}
+            >
+              <PageDesignPanel isOpen={openPanel === 'PageDesign'} togglePanel={() => togglePanel('PageDesign')} />
             </div>
             <div
               className={`absolute top-0 left-16 h-full transition-transform duration-700 ease-in-out ${
