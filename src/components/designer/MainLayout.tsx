@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { previewModeState } from '../../atoms/previewAtoms';
+import { panelSizeState } from '../../atoms/panelSizeAtoms';
 import Navbar from './navbar/Navbar';
 import EditorNavbar from './editorNavbar/EditorNavbar';
 import SiteThemePanel from './panels/SiteThemePanel';
@@ -15,13 +16,14 @@ import PageDesignPanel from './panels/PageDesignPanel';
 const MainLayout: React.FC = () => {
   const isDarkMode = useRecoilValue(darkModeState);
   const isPreviewMode = useRecoilValue(previewModeState);
+  const setPanelSize = useSetRecoilState(panelSizeState);
+
   const [openPanel, setOpenPanel] = useState<string | null>(null);
 
-  const togglePanel = (panelName: string) => {
+  const togglePanel = (panelName: string, size: string) => {
     setOpenPanel(openPanel === panelName ? null : panelName);
+    setPanelSize(size);
   };
-
-  const panelWidth = openPanel ? '18rem' : '0'; // Width of the side panel when open
 
   return (
     <div className={`flex flex-col h-screen ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-900'}`}>
@@ -36,45 +38,22 @@ const MainLayout: React.FC = () => {
           <div className="flex flex-grow relative transition-all duration-700 ease-in-out">
             <SidePanel togglePanel={togglePanel} activePanel={openPanel} />
 
-            {/* Panels */}
-            <div
-              className={`absolute top-0 left-16 h-full transition-transform duration-700 ease-in-out ${
-                openPanel === 'SiteTheme' ? 'translate-x-0' : '-translate-x-full'
-              }`}
-              style={{ width: panelWidth }}
-            >
-              <SiteThemePanel isOpen={openPanel === 'SiteTheme'} togglePanel={() => togglePanel('SiteTheme')} />
-            </div>
-            <div
-              className={`absolute top-0 left-16 h-full transition-transform duration-700 ease-in-out ${
-                openPanel === 'PageDesign' ? 'translate-x-0' : '-translate-x-full'
-              }`}
-              style={{ width: panelWidth }}
-            >
-              <PageDesignPanel isOpen={openPanel === 'PageDesign'} togglePanel={() => togglePanel('PageDesign')} />
-            </div>
-            <div
-              className={`absolute top-0 left-16 h-full transition-transform duration-700 ease-in-out ${
-                openPanel === 'Section' ? 'translate-x-0' : '-translate-x-full'
-              }`}
-              style={{ width: panelWidth }}
-            >
-              <SectionPanel isOpen={openPanel === 'Section'} togglePanel={() => togglePanel('Section')} />
-            </div>
-            <div
-              className={`absolute top-0 left-16 h-full transition-transform duration-700 ease-in-out ${
-                openPanel === 'Container' ? 'translate-x-0' : '-translate-x-full'
-              }`}
-              style={{ width: panelWidth }}
-            >
-              <ContainerPanel isOpen={openPanel === 'Container'} togglePanel={() => togglePanel('Container')} />
-            </div>
+            {/* Render panels based on openPanel */}
+            {openPanel === 'SiteTheme' && (
+              <SiteThemePanel isOpen={true} togglePanel={() => togglePanel('SiteTheme', '20rem')} />
+            )}
+            {openPanel === 'PageDesign' && (
+              <PageDesignPanel isOpen={true} togglePanel={() => togglePanel('PageDesign', '25rem')} />
+            )}
+            {openPanel === 'Section' && (
+              <SectionPanel isOpen={true} togglePanel={() => togglePanel('Section', '18rem')} />
+            )}
+            {openPanel === 'Container' && (
+              <ContainerPanel isOpen={true} togglePanel={() => togglePanel('Container', '18rem')} />
+            )}
 
             {/* Main Content Area with Craft.js Editor */}
-            <div
-              className={`flex-grow relative p-4 transition-all duration-700 ease-in-out`}
-              style={{ marginLeft: panelWidth }}
-            >
+            <div className={`flex-grow relative p-4 transition-all duration-700 ease-in-out`}>
               <CraftEditor />
             </div>
           </div>

@@ -5,6 +5,7 @@ import PanelHeader from './PanelHeader';
 import DraggableItem from '../editor/DraggableItem';
 import { darkModeState } from '../../../atoms/themeAtoms';
 import { Section } from '../editor/Section';
+import { panelSizeState } from '../../../atoms/panelSizeAtoms';
 
 interface SectionPanelProps {
   isOpen: boolean;
@@ -14,17 +15,14 @@ interface SectionPanelProps {
 const SectionPanel: React.FC<SectionPanelProps> = ({ isOpen, togglePanel }) => {
   const { connectors } = useEditor();
   const isDarkMode = useRecoilValue(darkModeState);
-  const panelWidth = '18rem';
+  const panelWidth = useRecoilValue(panelSizeState);
 
   return (
     <div
       className={`flex-shrink-0 h-full shadow-lg z-10 transition-transform duration-700 ease-in-out ${
         isOpen ? 'translate-x-0' : '-translate-x-full'
       } ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}
-      style={{
-        width: panelWidth,
-        flexBasis: panelWidth,
-      }}
+      style={{ width: panelWidth, flexBasis: panelWidth }}
     >
       <PanelHeader title="Add Section" onClose={togglePanel} />
       <div className="p-4">
