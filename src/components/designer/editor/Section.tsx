@@ -11,7 +11,7 @@ interface SectionProps {
 }
 
 export const Section: React.FC<SectionProps> & { craft?: any } = ({
-  background = "#f0f0f0",
+  background = "transparent",
   padding = "20px",
   children,
   style = {},
@@ -64,7 +64,7 @@ export const Section: React.FC<SectionProps> & { craft?: any } = ({
 
 Section.craft = {
   props: {
-    background: "#f0f0f0",
+    background: "transparent",
     padding: "20px",
     borderRadius: "0", // No rounded corners by default
     height: "300px",
