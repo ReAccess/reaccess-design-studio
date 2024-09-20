@@ -1,4 +1,3 @@
-// src/components/designer/elements/Section.tsx
 import React from "react";
 import { useNode } from "@craftjs/core";
 
@@ -31,34 +30,33 @@ export const Section: React.FC<SectionProps> & { craft?: any } = ({
   return (
     <div
       ref={(ref) => connect(drag(ref as HTMLElement))}
-      className="relative w-full"
+      className={`relative w-full border ${hasSelectedNode ? 'border-2 border-teal-500' : isHovered ? 'border border-teal-500' : 'border border-gray-300'}`}
       style={{
-        background,
-        padding,
-        border: hasSelectedNode || isHovered ? "2px solid #008080" : "1px solid #ddd",
-        borderRadius,
-        minHeight: height,
-        boxSizing: "border-box",
-        display: "flex",
-        flexDirection: "column",
-        ...style,
+      background,
+      padding,
+      borderRadius,
+      minHeight: height,
+      boxSizing: "border-box",
+      display: "flex",
+      flexDirection: "column",
+      ...style,
       }}
     >
       {children}
 
       {/* Label box - Positioned with a slight offset to account for the border */}
       {(hasSelectedNode || isHovered) && (
-        <div
-          className="absolute -top-0 right-0 transform translate-y-[-100%] bg-[#008080] text-sm font-semibold text-white px-2 py-1 shadow-md border border-[#008080] z-20"
-          style={{
-            top: "-2px", // Adjusted for alignment
-            right: "-2px", // Adjusted for alignment
-            whiteSpace: "nowrap",
-            borderRadius: "0", // No rounded corners
-          }}
-        >
-          Section: untitled
-        </div>
+      <div
+        className="absolute -top-0 right-0 transform translate-y-[-100%] bg-teal-500 text-sm font-semibold text-white px-2 py-1 shadow-md border border-teal-500 z-20"
+        style={{
+        top: "-2px", // Adjusted for alignment
+        right: "-2px", // Adjusted for alignment
+        whiteSpace: "nowrap",
+        borderRadius: "0", // No rounded corners
+        }}
+      >
+        Section: untitled
+      </div>
       )}
     </div>
   );

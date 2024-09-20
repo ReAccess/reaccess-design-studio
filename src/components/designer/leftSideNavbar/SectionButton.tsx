@@ -15,8 +15,8 @@ const SectionButton: React.FC<SectionButtonProps> = ({ onClick, active, darkMode
       icon={<DocumentIcon className="w-8 h-8" />}
       active={active}
       label="Section"
-      color="bg-[#008080] text-white"
-      hoverColor="hover:bg-[#008080]/80 hover:text-white"
+      color="bg-teal-500 text-white"
+      hoverColor="hover:bg-teal-500/80 hover:text-white"
       darkMode={darkMode}
     />
   );

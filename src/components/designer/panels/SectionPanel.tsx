@@ -24,7 +24,7 @@ const SectionPanel: React.FC<SectionPanelProps> = ({ isOpen, togglePanel }) => {
       } ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}
       style={{ width: panelWidth, flexBasis: panelWidth }}
     >
-      <PanelHeader title="Add Section" onClose={togglePanel} />
+      <PanelHeader title="Add Section" onClose={togglePanel} themeColor={'bg-teal-500'} />
       <div className="p-4">
         {/* Draggable Item for the Section */}
         <DraggableItem refFn={(ref) => connectors.create(ref as HTMLElement, <Section />)}>

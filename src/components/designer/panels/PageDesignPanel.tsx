@@ -20,7 +20,7 @@ const PageDesignPanel: React.FC<PageDesignPanelProps> = ({ isOpen, togglePanel }
       } ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}
       style={{ width: panelWidth, flexBasis: panelWidth }}
     >
-      <PanelHeader title="Page Design" onClose={togglePanel} />
+      <PanelHeader title="Page Design" onClose={togglePanel} themeColor={'bg-green-200'} />
       <div className="p-4">Page Design panel content here...</div>
     </div>
   );
