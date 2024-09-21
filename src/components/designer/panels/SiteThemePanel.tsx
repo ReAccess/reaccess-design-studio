@@ -33,7 +33,7 @@ const SiteThemePanel: React.FC<SiteThemePanelProps> = ({ isOpen, togglePanel }) 
         flexBasis: panelWidth,
       }}
     >
-      <PanelHeader title="Site Design" onClose={togglePanel} themeColor={'bg-yellow-200'} />
+      <PanelHeader title="Site Design" onClose={togglePanel} borderColor={'border-l-yellow-200'} />
 
       <div className="p-4 h-full overflow-y-auto pb-10">
         {!showThemeSelection ? (

@@ -24,7 +24,7 @@ const ContainerPanel: React.FC<ContainerPanelProps> = ({ isOpen, togglePanel }) 
       } ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}
       style={{ width: panelWidth, flexBasis: panelWidth }}
     >
-      <PanelHeader title="Add Container" onClose={togglePanel} themeColor={'bg-purple-200'} />
+      <PanelHeader title="Add Container" onClose={togglePanel} borderColor={'border-l-purple-200'} />
       <div className="p-4">
         <DraggableItem refFn={(ref) => connectors.create(ref as HTMLElement, <Container />)}>
           <span className="icon">📦</span>

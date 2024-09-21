@@ -3,15 +3,12 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useRecoilValue } from 'recoil';
 import { darkModeState } from '../../../atoms/themeAtoms';
 
-const PanelHeader: React.FC<{ title: string; onClose: () => void; themeColor: string }> = ({ title, onClose, themeColor }) => {
+const PanelHeader: React.FC<{ title: string; onClose: () => void; borderColor: string }> = ({ title, onClose, borderColor }) => {
   const isDarkMode = useRecoilValue(darkModeState);
 
   return (
     <div
-      className={`flex items-center justify-between p-2 ${isDarkMode ? 'bg-gradient-to-r from-gray-900 to-gray-700 text-white' : `bg-gradient-to-r ${themeColor} to-white text-gray-800`}`}
-      style={{
-        height: '3rem',
-      }}
+      className={`flex items-center justify-between p-2 h-12 border-l-8 ${borderColor} ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-800'}`}
     >
       <h2
         className="text-lg font-semibold"
