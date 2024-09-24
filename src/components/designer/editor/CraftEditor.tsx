@@ -44,7 +44,7 @@ const CraftEditor: React.FC = () => {
   useDocumentDragEvents(handleDrag, handleDrop);
 
   return (
-    <div className="relative h-full craft-editor">
+    <div className="relative h-full p-4 overflow-y-auto craft-editor">
       {/* Purple center alignment guide */}
       {isAlignedCenter && (
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 h-full w-[1px] bg-purple-600 z-20"></div>

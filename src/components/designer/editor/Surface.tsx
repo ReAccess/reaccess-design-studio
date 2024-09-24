@@ -24,7 +24,7 @@ import { ExportModeContext } from '../../../context/ExportModeContext';
       className={`relative w-full flex flex-col items-start justify-start ${!isExportMode ? 'border border-gray-300 shadow-2xl' : ''
         }`}
       style={{
-        minHeight: !isExportMode ? 'calc(100vh - 120px)' : '100vh', // Ensure the surface takes up the full viewport height //'calc(100vh - 100px)'
+        minHeight: !isExportMode ? 'calc(100vh - 130px)' : '100vh', // Ensure the surface takes up the full viewport height
         backgroundColor: backgroundColor, // Apply the preview or saved theme's background color
         paddingBottom: '20px',
         boxShadow: !isExportMode ? '0 10px 20px rgba(0, 0, 0, 0.1), 0 0px 20px rgba(0, 0, 0, 0.1)' : '',

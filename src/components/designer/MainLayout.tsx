@@ -64,7 +64,7 @@ const MainLayout: React.FC = () => {
             )}
 
             {/* Main Content Area with Craft.js Editor */}
-            <div className={`flex-grow relative p-4 overflow-y-auto transition-all duration-700 ease-in-out`}>
+            <div className={`flex-grow relative transition-all duration-700 ease-in-out`}>
               <CraftEditor />
             </div>
           </div>
