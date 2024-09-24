@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNode } from "@craftjs/core";
+import { ExportModeContext } from "../../../context/ExportModeContext";
 
 interface SectionProps {
   background?: string;
@@ -26,37 +27,39 @@ export const Section: React.FC<SectionProps> & { craft?: any } = ({
     hasSelectedNode: node.events.selected,
     isHovered: node.events.hovered,
   }));
+  const isExportMode = useContext(ExportModeContext);
 
   return (
     <div
       ref={(ref) => connect(drag(ref as HTMLElement))}
-      className={`relative w-full border ${hasSelectedNode ? 'border-2 border-teal-500' : isHovered ? 'border border-teal-500' : 'border border-gray-300'}`}
+      className={`relative w-full ${!isExportMode && (hasSelectedNode ? 'border-2 border-teal-500' : isHovered ? 'border border-teal-500' : '') // No border by default in export mode
+        }`}
       style={{
-      background,
-      padding,
-      borderRadius,
-      minHeight: height,
-      boxSizing: "border-box",
-      display: "flex",
-      flexDirection: "column",
-      ...style,
+        background,
+        padding,
+        borderRadius,
+        minHeight: height,
+        boxSizing: "border-box",
+        display: "flex",
+        flexDirection: "column",
+        ...style,
       }}
     >
       {children}
 
       {/* Label box - Positioned with a slight offset to account for the border */}
       {(hasSelectedNode || isHovered) && (
-      <div
-        className="absolute -top-0 right-0 transform translate-y-[-100%] bg-teal-500 text-sm font-semibold text-white px-2 py-1 shadow-md border border-teal-500 z-20"
-        style={{
-        top: "-2px", // Adjusted for alignment
-        right: "-2px", // Adjusted for alignment
-        whiteSpace: "nowrap",
-        borderRadius: "0", // No rounded corners
-        }}
-      >
-        Section: untitled
-      </div>
+        <div
+          className="absolute -top-0 right-0 transform translate-y-[-100%] bg-teal-500 text-sm font-semibold text-white px-2 py-1 shadow-md border border-teal-500 z-20"
+          style={{
+            top: "-2px", // Adjusted for alignment
+            right: "-2px", // Adjusted for alignment
+            whiteSpace: "nowrap",
+            borderRadius: "0", // No rounded corners
+          }}
+        >
+          Section: untitled
+        </div>
       )}
     </div>
   );
