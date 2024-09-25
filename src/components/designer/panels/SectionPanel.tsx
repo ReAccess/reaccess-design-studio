@@ -1,10 +1,8 @@
 import React from 'react';
-import { useEditor } from '@craftjs/core';
 import { useRecoilValue } from 'recoil';
 import PanelHeader from './PanelHeader';
 import DraggableItem from '../editor/DraggableItem';
 import { darkModeState } from '../../../atoms/themeAtoms';
-import { Section } from '../editor/Section';
 import { panelSizeState } from '../../../atoms/panelSizeAtoms';
 
 interface SectionPanelProps {
@@ -13,7 +11,6 @@ interface SectionPanelProps {
 }
 
 const SectionPanel: React.FC<SectionPanelProps> = ({ isOpen, togglePanel }) => {
-  const { connectors } = useEditor();
   const isDarkMode = useRecoilValue(darkModeState);
   const panelWidth = useRecoilValue(panelSizeState);
 
@@ -26,8 +23,7 @@ const SectionPanel: React.FC<SectionPanelProps> = ({ isOpen, togglePanel }) => {
     >
       <PanelHeader title="Add Section" onClose={togglePanel} borderColor={'border-l-teal-200'} />
       <div className="p-4">
-        {/* Draggable Item for the Section */}
-        <DraggableItem refFn={(ref) => connectors.create(ref as HTMLElement, <Section />)}>
+        <DraggableItem itemType="SECTION">
           <span className="icon">📄</span>
           <span className="ml-2">Section</span>
         </DraggableItem>

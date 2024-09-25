@@ -1,11 +1,9 @@
 import React from 'react';
-import { useEditor } from '@craftjs/core';
 import { useRecoilValue } from 'recoil';
 import PanelHeader from './PanelHeader';
 import DraggableItem from '../editor/DraggableItem';
 import { darkModeState } from '../../../atoms/themeAtoms';
 import { panelSizeState } from '../../../atoms/panelSizeAtoms';
-import Container from '../editor/Container';
 
 interface ContainerPanelProps {
   isOpen: boolean;
@@ -13,7 +11,6 @@ interface ContainerPanelProps {
 }
 
 const ContainerPanel: React.FC<ContainerPanelProps> = ({ isOpen, togglePanel }) => {
-  const { connectors } = useEditor();
   const isDarkMode = useRecoilValue(darkModeState);
   const panelWidth = useRecoilValue(panelSizeState);
 
@@ -26,7 +23,7 @@ const ContainerPanel: React.FC<ContainerPanelProps> = ({ isOpen, togglePanel }) 
     >
       <PanelHeader title="Add Container" onClose={togglePanel} borderColor={'border-l-purple-200'} />
       <div className="p-4">
-        <DraggableItem refFn={(ref) => connectors.create(ref as HTMLElement, <Container />)}>
+        <DraggableItem itemType="CONTAINER">
           <span className="icon">📦</span>
           <span className="ml-2">Container</span>
         </DraggableItem>

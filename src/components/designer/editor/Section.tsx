@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
-import { useNode } from "@craftjs/core";
-import { ExportModeContext } from "../../../context/ExportModeContext";
+import React, { useContext } from 'react';
+import { useNode } from '@craftjs/core';
+import { ExportModeContext } from '../../../context/ExportModeContext';
 
 interface SectionProps {
   background?: string;
@@ -12,50 +12,57 @@ interface SectionProps {
 }
 
 export const Section: React.FC<SectionProps> & { craft?: any } = ({
-  background = "transparent",
-  padding = "20px",
+  background = 'transparent',
+  padding = '20px',
   children,
   style = {},
-  borderRadius = "0",
-  height = "300px",
+  borderRadius = '0',
+  height = '300px',
 }) => {
   const {
     connectors: { connect, drag },
-    hasSelectedNode,
-    isHovered,
+    selected,
+    hovered,
   } = useNode((node) => ({
-    hasSelectedNode: node.events.selected,
-    isHovered: node.events.hovered,
+    selected: node.events.selected,
+    hovered: node.events.hovered,
   }));
   const isExportMode = useContext(ExportModeContext);
 
+  const ref = (element: HTMLDivElement | null) => {
+    if (element) {
+      connect(drag(element));
+    }
+  };
+
   return (
     <div
-      ref={(ref) => connect(drag(ref as HTMLElement))}
-      className={`relative w-full ${!isExportMode && (hasSelectedNode ? 'border-2 border-teal-500' : isHovered ? 'border border-teal-500' : '') // No border by default in export mode
-        }`}
+      ref={ref}
+      className={`relative w-full ${
+        !isExportMode && (selected ? 'border-2 border-teal-500' : hovered ? 'border border-teal-500' : '')
+      }`}
       style={{
         background,
         padding,
         borderRadius,
         minHeight: height,
-        boxSizing: "border-box",
-        display: "flex",
-        flexDirection: "column",
+        boxSizing: 'border-box',
+        display: 'block',
+        width: '100%',
         ...style,
       }}
     >
       {children}
 
-      {/* Label box - Positioned with a slight offset to account for the border */}
-      {(hasSelectedNode || isHovered) && (
+      {/* Label box */}
+      {(selected || hovered) && (
         <div
           className="absolute -top-0 right-0 transform translate-y-[-100%] bg-teal-500 text-sm font-semibold text-white px-2 py-1 shadow-md border border-teal-500 z-20"
           style={{
-            top: "-2px", // Adjusted for alignment
-            right: "-2px", // Adjusted for alignment
-            whiteSpace: "nowrap",
-            borderRadius: "0", // No rounded corners
+            top: '-2px',
+            right: '-2px',
+            whiteSpace: 'nowrap',
+            borderRadius: '0',
           }}
         >
           Section: untitled
@@ -67,10 +74,10 @@ export const Section: React.FC<SectionProps> & { craft?: any } = ({
 
 Section.craft = {
   props: {
-    background: "transparent",
-    padding: "20px",
-    borderRadius: "0", // No rounded corners by default
-    height: "300px",
+    background: 'transparent',
+    padding: '20px',
+    borderRadius: '0',
+    height: '300px',
     style: {},
   },
   related: {
@@ -78,6 +85,7 @@ Section.craft = {
   },
   rules: {
     canMoveIn: (incomingNodes: any[]) => {
+      // Prevent nesting of Sections within Sections
       return incomingNodes.every((node) => node.data.type !== Section);
     },
   },
@@ -85,3 +93,5 @@ Section.craft = {
   isDraggable: true,
   isCanvas: true,
 };
+
+export default Section;
