@@ -1,36 +1,24 @@
 import React from 'react';
-import { Editor, Frame } from '@craftjs/core';
-import Container from './editor/Container';
-import { Section } from './editor/Section';
-import Surface from './editor/Surface';
+import { Frame } from '@craftjs/core';
 import { useRecoilValue } from 'recoil';
-import { editorSaveDataState } from '../../atoms/editorSaveDataAtom';
-import lz from 'lzutf8';
-import { cloneDeep } from 'lodash';
-import { ExportModeContext } from '../../context/ExportModeContext';
+import { editorWorkingState } from '../../atoms/editorSaveDataAtom';
+import { deviceWidthState } from '../../atoms/deviceWidthState';
 
 export const PreviewPage: React.FC = () => {
-  const editorSaveData = useRecoilValue(editorSaveDataState);
-  const clonedDecodedSavedData = cloneDeep(JSON.parse(lz.decompress(lz.decodeBase64(editorSaveData.editorState))));
+  const workingEditorState = useRecoilValue(editorWorkingState);
+  const deviceWidth = useRecoilValue(deviceWidthState);
 
   return (
-    <ExportModeContext.Provider value={true}>
-      <div
-        style={{
-          overflow: 'auto', // Allow scrolling
-        }}
-      >
-        <Editor
-          resolver={{
-            Container,
-            Section,
-            Surface,
-          }}
-          enabled={false} // Disable editor mode to prevent editing
-        >
-          <Frame data={clonedDecodedSavedData}></Frame>
-        </Editor>
-      </div>
-    </ExportModeContext.Provider>
+    <div
+      style={{
+        //overflow: 'auto', // Allow scrolling
+        width: '100%',
+        margin: '0 auto',
+        //height: '1000px', // Same height as in CraftEditor
+        position: 'relative',
+      }}
+    >
+      <Frame data={workingEditorState} />
+    </div>
   );
 };

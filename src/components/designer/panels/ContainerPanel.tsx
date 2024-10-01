@@ -3,7 +3,8 @@ import { useRecoilValue } from 'recoil';
 import PanelHeader from './PanelHeader';
 import DraggableItem from '../editor/DraggableItem';
 import { darkModeState } from '../../../atoms/themeAtoms';
-import { panelSizeState } from '../../../atoms/panelSizeAtoms';
+import { editorSaveDataState } from '../../../atoms/editorSaveDataAtom';
+import ContainerPreview from '../editor/ContainerPreview';
 
 interface ContainerPanelProps {
   isOpen: boolean;
@@ -12,7 +13,10 @@ interface ContainerPanelProps {
 
 const ContainerPanel: React.FC<ContainerPanelProps> = ({ isOpen, togglePanel }) => {
   const isDarkMode = useRecoilValue(darkModeState);
-  const panelWidth = useRecoilValue(panelSizeState);
+  const panelWidth = '25rem';
+
+  const editorSaveData = useRecoilValue(editorSaveDataState);
+  const currentThemeColors = editorSaveData.theme.colors;
 
   return (
     <div
@@ -23,10 +27,26 @@ const ContainerPanel: React.FC<ContainerPanelProps> = ({ isOpen, togglePanel }) 
     >
       <PanelHeader title="Add Container" onClose={togglePanel} borderColor={'border-l-purple-200'} />
       <div className="p-4">
-        <DraggableItem itemType="CONTAINER">
-          <span className="icon">📦</span>
-          <span className="ml-2">Container</span>
-        </DraggableItem>
+        <div className="grid grid-cols-2 gap-4"> {/* Changed grid-cols-3 to grid-cols-2 */}
+          {currentThemeColors.map((color) => (
+            <DraggableItem
+              key={color}
+              itemType="CONTAINER"
+              itemData={{
+                background: color,
+                borderRadius: '8px',
+              }}
+            >
+              {/* Use ContainerPreview here */}
+              <ContainerPreview
+                background={color}
+                borderRadius="8px"
+                width="100%"
+                height="80px"
+              />
+            </DraggableItem>
+          ))}
+        </div>
       </div>
     </div>
   );

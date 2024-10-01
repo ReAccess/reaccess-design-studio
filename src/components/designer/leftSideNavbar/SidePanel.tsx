@@ -40,7 +40,7 @@ const SidePanel: React.FC<SidePanelProps> = ({ togglePanel, activePanel }) => {
         darkMode={isDarkMode}
       />
       <ContainerButton
-        onClick={() => togglePanel('Container', '18rem')}
+        onClick={() => togglePanel('Container', '25rem')}
         active={activePanel === 'Container'}
         darkMode={isDarkMode}
       />

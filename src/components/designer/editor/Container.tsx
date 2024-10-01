@@ -11,8 +11,8 @@ interface ContainerProps {
   borderRadius?: string;
   boxShadow?: string;
   style?: React.CSSProperties;
-  top?: number;
-  left?: number;
+  top?: string; // Percentage string, e.g., '10%'
+  left?: string; // Percentage string, e.g., '20%'
 }
 
 const Container: React.FC<ContainerProps> & { craft?: any } = ({
@@ -25,8 +25,8 @@ const Container: React.FC<ContainerProps> & { craft?: any } = ({
   borderRadius = '8px',
   boxShadow = '0',
   style = {},
-  top = 0,
-  left = 0,
+  top = '0%',
+  left = '0%',
 }) => {
   const {
     connectors: { connect, drag },
@@ -48,7 +48,7 @@ const Container: React.FC<ContainerProps> & { craft?: any } = ({
       ref={ref}
       className={`absolute flex flex-col items-stretch p-4 border ${
         selected || hovered ? 'border-2 border-gray-300' : 'border border-gray-300'
-      } rounded-lg shadow`}
+      }`}
       style={{
         position: 'absolute',
         top,
@@ -58,7 +58,7 @@ const Container: React.FC<ContainerProps> & { craft?: any } = ({
         width,
         minHeight: height,
         boxSizing: 'border-box',
-        borderRadius: `${borderRadius}px`,
+        borderRadius,
         boxShadow: `0px 0px ${boxShadow}px rgba(0, 0, 0, 0.3)`,
         ...style,
       }}
@@ -75,11 +75,11 @@ Container.craft = {
     width: '400px',
     height: '250px',
     borderColor: '#ddd',
-    borderRadius: '8',
+    borderRadius: '8px',
     boxShadow: '0',
     style: {},
-    top: 0,
-    left: 0,
+    top: '0%',
+    left: '0%',
   },
   related: {
     toolbar: () => <div>Container Toolbar</div>,

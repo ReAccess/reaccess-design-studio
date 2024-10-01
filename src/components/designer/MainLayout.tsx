@@ -14,6 +14,7 @@ import { darkModeState } from '../../atoms/themeAtoms';
 import { PreviewPage } from './PreviewPage';
 import PageDesignPanel from './panels/PageDesignPanel';
 import { useInitializeEditorData } from '../../hooks/useInitializeEditorData';
+import CustomDragLayer from './editor/CustomDragLayer';
 
 const MainLayout: React.FC = () => {
   const isDarkMode = useRecoilValue(darkModeState);
@@ -60,11 +61,13 @@ const MainLayout: React.FC = () => {
               <SectionPanel isOpen={true} togglePanel={() => togglePanel('Section', '18rem')} />
             )}
             {openPanel === 'Container' && (
-              <ContainerPanel isOpen={true} togglePanel={() => togglePanel('Container', '18rem')} />
+              <ContainerPanel isOpen={true} togglePanel={() => togglePanel('Container', '25rem')} />
             )}
 
             {/* Main Content Area with Craft.js Editor */}
             <div className={`flex-grow relative transition-all duration-700 ease-in-out`}>
+              {/* Include CustomDragLayer inside the Editor context */}
+              <CustomDragLayer />
               <CraftEditor />
             </div>
           </div>
