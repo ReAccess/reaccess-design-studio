@@ -1,14 +1,12 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil';
-import { editorSaveDataState } from '../../../atoms/editorSaveDataAtom';
+import { useSetRecoilState } from 'recoil';
+import { handleExportState } from '../../../atoms/handleExportAtoms';
 
 const SaveButton: React.FC = () => {
-  const editorSaveData = useRecoilValue(editorSaveDataState);
+  const setTriggerExport = useSetRecoilState(handleExportState);
 
   const handleSave = () => {
-    // Save the current editor state to localStorage
-    localStorage.setItem('editorSaveData', JSON.stringify(editorSaveData));
-    console.log('Editor state saved to localStorage:', editorSaveData);
+    setTriggerExport(true); 
   };
 
   return (

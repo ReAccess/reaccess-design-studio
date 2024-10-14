@@ -50,9 +50,9 @@ const Container: React.FC<ContainerProps> & { craft?: any } = ({
         selected || hovered ? 'border-2 border-gray-300' : 'border border-gray-300'
       }`}
       style={{
-        position: 'absolute',
-        top,
-        left,
+        position: 'absolute', // Ensure absolute positioning is maintained
+        top, // Use the top value passed as a prop
+        left, // Use the left value passed as a prop
         background,
         padding,
         width,

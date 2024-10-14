@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { previewModeState } from '../../atoms/previewAtoms';
 import { panelSizeState } from '../../atoms/panelSizeAtoms';
 import { editorLoadingState } from '../../atoms/editorSaveDataAtom';
 import Navbar from './navbar/Navbar';
@@ -11,19 +10,17 @@ import ContainerPanel from './panels/ContainerPanel';
 import CraftEditor from './editor/CraftEditor';
 import SidePanel from './leftSideNavbar/SidePanel';
 import { darkModeState } from '../../atoms/themeAtoms';
-import { PreviewPage } from './PreviewPage';
 import PageDesignPanel from './panels/PageDesignPanel';
 import { useInitializeEditorData } from '../../hooks/useInitializeEditorData';
 import CustomDragLayer from './editor/CustomDragLayer';
 
 const MainLayout: React.FC = () => {
   const isDarkMode = useRecoilValue(darkModeState);
-  const isPreviewMode = useRecoilValue(previewModeState);
   const isLoading = useRecoilValue(editorLoadingState);
   const setPanelSize = useSetRecoilState(panelSizeState);
-  
-  // Initialize editor data
-  useInitializeEditorData(); 
+
+    // Initialize editor data
+    useInitializeEditorData(); 
   
   const [openPanel, setOpenPanel] = useState<string | null>(null);
 
@@ -35,22 +32,18 @@ const MainLayout: React.FC = () => {
   return (
     <div className={`flex flex-col h-screen overflow-hidden ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-900'}`}>
       <Navbar />
-
-      {/* Show loading spinner or shimmer when editor data is loading */}
+      
       {isLoading ? (
         <div className="flex-grow flex items-center justify-center">
-          {/* Replace with your spinner or shimmer */}
           <div className="loader">Loading...</div>
         </div>
-      ) : isPreviewMode ? (
-        <PreviewPage />
       ) : (
         <>
           <EditorNavbar />
           <div className="flex flex-grow overflow-hidden transition-all duration-700 ease-in-out">
+            {/* Side Panel for dragging components */}
             <SidePanel togglePanel={togglePanel} activePanel={openPanel} />
-
-            {/* Render panels based on openPanel */}
+            
             {openPanel === 'SiteTheme' && (
               <SiteThemePanel isOpen={true} togglePanel={() => togglePanel('SiteTheme', '22rem')} />
             )}
@@ -65,10 +58,9 @@ const MainLayout: React.FC = () => {
             )}
 
             {/* Main Content Area with Craft.js Editor */}
-            <div className={`flex-grow relative transition-all duration-700 ease-in-out`}>
-              {/* Include CustomDragLayer inside the Editor context */}
+            <div className="flex-grow">
               <CustomDragLayer />
-              <CraftEditor />
+              <CraftEditor /> {/* This is where the main editor is */}
             </div>
           </div>
         </>

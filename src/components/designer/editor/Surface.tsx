@@ -1,18 +1,14 @@
-// src/components/designer/editor/Surface.tsx
-import React, { useContext, useRef, useState } from 'react';
-import { useNode, useEditor, Element } from '@craftjs/core';
+import React, { useRef, useContext } from 'react';
+import { useNode, Element, useEditor } from '@craftjs/core';
 import { useDrop } from 'react-dnd';
 import { useRecoilValue } from 'recoil';
 import { editorSaveDataState } from '../../../atoms/editorSaveDataAtom';
 import { themePreviewState } from '../../../atoms/themePreviewAtom';
 import { ExportModeContext } from '../../../context/ExportModeContext';
-import { deviceWidthState } from '../../../atoms/deviceWidthState';
 import Container from './Container';
 import { useSaveWithDebounce } from '../../../hooks/useSaveWithDebounce';
 
-const Surface: React.FC<React.PropsWithChildren> & { craft?: any } = ({
-  children,
-}) => {
+export const Surface: React.FC<React.PropsWithChildren> & { craft?: any } = ({ children }) => {
   const {
     connectors: { connect },
     id,
@@ -21,61 +17,59 @@ const Surface: React.FC<React.PropsWithChildren> & { craft?: any } = ({
   const { actions, query } = useEditor();
   const editorSaveData = useRecoilValue(editorSaveDataState);
   const previewTheme = useRecoilValue(themePreviewState);
-  const deviceWidth = useRecoilValue(deviceWidthState);
   const isExportMode = useContext(ExportModeContext);
 
-  const backgroundColor = previewTheme?.colors[0] || editorSaveData.theme.colors[0];
   const dropRef = useRef<HTMLDivElement | null>(null);
-  const [isAlignedCenter, setIsAlignedCenter] = useState(false);
 
   // Initialize debouncedSave
   const debouncedSave = useSaveWithDebounce(200);
 
-  const [{ isOver, canDrop, item: dragItem, clientOffset }, drop] = useDrop({
+  const [, drop] = useDrop({
     accept: ['CONTAINER'],
-    collect: (monitor) => ({
-      isOver: monitor.isOver({ shallow: true }),
-      canDrop: monitor.canDrop(),
-      item: monitor.getItem(),
-      clientOffset: monitor.getClientOffset(),
-    }),
     drop: (item: any, monitor) => {
       if (!dropRef.current) return;
 
+      // Get the surface rect and scroll offsets
+      const surfaceRect = dropRef.current.getBoundingClientRect();
+      const surfaceScrollTop = dropRef.current.scrollTop;
+      const surfaceScrollLeft = dropRef.current.scrollLeft;
+
+      // Get client offset
       const clientOffset = monitor.getClientOffset();
       if (!clientOffset) return;
 
-      const surfaceRect = dropRef.current.getBoundingClientRect();
+      // Correct the x and y values based on surface rect
+      const x = clientOffset.x - surfaceRect.left + surfaceScrollLeft;
+      const y = clientOffset.y - surfaceRect.top + surfaceScrollTop;
 
-      // Compute the position relative to the surface
-      const x = clientOffset.x - surfaceRect.left + dropRef.current.scrollLeft;
-      const y = clientOffset.y - surfaceRect.top + dropRef.current.scrollTop;
+      // Adjust the leftPercent and topPercent to use full width and height
+      const leftPercent = Math.min(Math.max((x / surfaceRect.width) * 100, 0), 100);
+      const topPercent = Math.min(Math.max((y / surfaceRect.height) * 100, 0), 100);
 
-      // Calculate positions as percentages
-      const leftPercent = (x / surfaceRect.width) * 100;
-      const topPercent = (y / surfaceRect.height) * 100;
+      console.log('Drop Details:', {
+        clientOffset,
+        surfaceRect,
+        surfaceScrollTop,
+        surfaceScrollLeft,
+        calculatedX: x,
+        calculatedY: y,
+        leftPercent,
+        topPercent,
+      });
 
       if (item.type === 'CONTAINER') {
-        const { type, ...containerProps } = item;
-
-        const containerNodeProps = {
-          ...containerProps,
+        const containerProps = {
+          ...item,
           top: `${topPercent}%`,
           left: `${leftPercent}%`,
         };
 
-        // Create a node tree
         const nodeTree = query
-          .parseReactElement(
-            <Element is={Container} canvas {...containerNodeProps} />
-          )
+          .parseReactElement(<Element is={Container} canvas {...containerProps} />)
           .toNodeTree();
 
-        // Add the node tree to the editor
         actions.addNodeTree(nodeTree, id);
       }
-
-      setIsAlignedCenter(false);
 
       // Save the editor state
       const serializedNodes = query.serialize();
@@ -95,47 +89,23 @@ const Surface: React.FC<React.PropsWithChildren> & { craft?: any } = ({
   return (
     <div
       ref={ref}
-      className={`relative w-full h-full ${
-        !isExportMode ? 'border border-gray-300 shadow-2xl' : ''
-      }`}
+      className={`relative w-full h-full`}
       style={{
-        position: 'relative',
-        backgroundColor: backgroundColor,
+        backgroundColor: previewTheme?.colors[0] || editorSaveData.theme.colors[0],
         paddingBottom: '20px',
-        boxShadow: !isExportMode
-          ? '0 10px 20px rgba(0, 0, 0, 0.1), 0 0px 20px rgba(0, 0, 0, 0.1)'
-          : '',
+        overflow: 'auto', // Ensure scrolling when the content exceeds viewport height
+        ...(!isExportMode ? {} : { position: 'relative' }), // Ensure positioning for containers only in editor mode
       }}
     >
-       {/* Center alignment guide */}
-       {isAlignedCenter && (
-        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 h-full w-[1px] bg-purple-600 z-20"></div>
-      )}
-
-      {/* Dotted alignment lines */}
-      {!isExportMode && (
-        <>
-          <div
-            className="export-ignore absolute top-0 left-[10%] h-full z-10"
-            style={{
-              backgroundImage: 'linear-gradient(to bottom, black 50%, transparent 0%)',
-              backgroundPosition: 'left',
-              backgroundSize: '2px 12px',
-              width: '2px',
-            }}
-          ></div>
-          <div
-            className="export-ignore absolute top-0 right-[10%] h-full z-10"
-            style={{
-              backgroundImage: 'linear-gradient(to bottom, black 50%, transparent 0%)',
-              backgroundPosition: 'right',
-              backgroundSize: '2px 12px',
-              width: '2px',
-            }}
-          ></div>
-        </>
-      )}
-      {children}
+      <div
+        className="max-w-[1200px] mx-auto"
+        style={{
+          backgroundColor: 'inherit',
+          ...(!isExportMode ? { display: 'block', margin: '0 auto' } : { position: 'relative' }), // Proper layout for preview vs editor mode
+        }}
+      >
+        {children}
+      </div>
     </div>
   );
 };
@@ -143,9 +113,4 @@ const Surface: React.FC<React.PropsWithChildren> & { craft?: any } = ({
 Surface.craft = {
   displayName: 'Surface',
   isCanvas: true,
-  rules: {
-    canMoveIn: () => true,
-  },
 };
-
-export default Surface;
